@@ -1,9 +1,10 @@
-# ESIDE
+# ESIDE: Explainable Synthetic Image Detection through Diffusion Timestep Ensembling
 
 ## Introduction
 
 This is the implementation of the paper: 
 
-<a href="https://arxiv.org/abs/2503.06201">Explainable Synthetic Image Detection through Diffusion Timestep Ensembling</a>
+<a href="https://arxiv.org/abs/2503.06201">Explainable Synthetic Image Detection through Diffusion Timestep Ensembling</a>  (Under Review)
+
 
 Our code and datasets will be released soon.
