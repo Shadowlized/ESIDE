@@ -6,7 +6,7 @@ This is the implementation of the paper:
 
 **[AAAI-26] <a href="https://arxiv.org/abs/2503.06201">Explainable Synthetic Image Detection through Diffusion Timestep Ensembling</a>**
 
-Our code and datasets will be released in November, 2025!
+Our code and datasets will be released this December!
 
 ![main_figure](figures/main_figure.png)
 
@@ -29,7 +29,7 @@ Download Link:
 
 A dataset comprising 54,210 groups of images, flaws (14 categories) and corresponding explanations. The ratings of relevant phrases across 3 refinement iterations are also included.
 
-Download Link:
+Download Link: <a href="https://huggingface.co/datasets/Shadowlized/GenExplain">https://huggingface.co/datasets/Shadowlized/GenExplain</a>
 
 ![explain_ds_figure](figures/explain_ds_figure.png)
 
