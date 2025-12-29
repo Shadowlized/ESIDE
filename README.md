@@ -23,7 +23,9 @@ Our code and datasets will be released this December!
 
 Synthetic and natural images of greater detection difficulty. Across the 8 subsets of the GenImage benchmark, the 108,704 synthetic images and 112,682 natural images misclassified by a simple baseline classifier were identified as the harder samples and appended.
 
-Download Link:
+We include only the filenames of the images in this dataset, while the original images need to be downloaded from <a href="https://github.com/GenImage-Dataset/GenImage">GenImage</a>. 
+
+Download Link: <a href="https://huggingface.co/datasets/Shadowlized/GenHard">https://huggingface.co/datasets/Shadowlized/GenHard</a>
 
 ### GenExplain
 
