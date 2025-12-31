@@ -6,9 +6,11 @@ This is the implementation of the paper:
 
 **[AAAI-26] <a href="https://arxiv.org/abs/2503.06201">Explainable Synthetic Image Detection through Diffusion Timestep Ensembling</a>**
 
-Our code and datasets will be released this December!
-
 ![main_figure](figures/main_figure.png)
+
+### Timeline
+**[2025.12.31]** Our main code and datasets have been released. Installation tutorials and pipeline demos will be uploaded in January!
+
 
 ## Installation
 
