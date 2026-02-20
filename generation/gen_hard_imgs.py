@@ -8,6 +8,9 @@ from torchvision.datasets import ImageFolder
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from classifier import BinaryClassifier
 from dataset import clip_transform, DATASET_ROUTES, ClipFeatureDataset
 

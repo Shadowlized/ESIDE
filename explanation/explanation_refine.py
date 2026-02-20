@@ -43,7 +43,7 @@ def get_response(client, base64_image, prompt, model_name, max_tokens):
             max_tokens=max_tokens,
         )
     except (openai.InternalServerError, openai.APIConnectionError, FileNotFoundError , openai.BadRequestError, openai.PermissionDeniedError,Exception) as e:
-        print(f'errorr occurs: {e}')
+        print(f'error occurs: {e}')
         return None
 
             

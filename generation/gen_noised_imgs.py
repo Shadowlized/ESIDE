@@ -16,6 +16,9 @@ import torch
 import torch.nn.functional as F
 import torchvision.transforms as transforms
 
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from DIRE.guided_diffusion.guided_diffusion import dist_util, logger
 from DIRE.guided_diffusion.guided_diffusion.image_datasets import load_data_for_reverse
 from DIRE.guided_diffusion.guided_diffusion.script_util import (
@@ -80,9 +83,7 @@ def gen_noised_images(args, model, diffusion, save_dir, save_steps: int, imgs, g
             save_image(noised_images, save_dir, group_cnt, t + 1, args.split_idx, args.class_split)
 
 
-def main(dataset_root, class_split):
-    args = create_argparser(dataset_root, class_split).parse_args()
-
+def main(args):
     dist_util.setup_dist(os.environ["CUDA_VISIBLE_DEVICES"])
     logger.configure(dir='./logs')
     logger.log(str(args))
@@ -124,17 +125,21 @@ def main(dataset_root, class_split):
     logger.log("Noised images generation complete!")
 
 
-def create_argparser(dataset_root, class_split):
+def update_argparser(image_size, batch_size, dataset_root, class_split):
     defaults = model_and_diffusion_defaults()
+
+    if image_size == 256:
+        custom_diff = dict(
+            model_path="DIRE/guided_diffusion/models/256x256_diffusion_uncond.pt",
+        )
+    elif image_size == 512:
+        custom_diff = dict(
+            model_path="DIRE/guided_diffusion/models/512x512_diffusion.pt",
+        )
+
     custom = dict(
-        # model_path="DIRE/guided_diffusion/models/256x256_diffusion_uncond.pt",
-        # image_size=256,
-        # batch_size=32,
-
-        model_path="DIRE/guided_diffusion/models/512x512_diffusion.pt",
-        image_size=512,
-        batch_size=16,
-
+        image_size=image_size,
+        batch_size=batch_size,
         split_idx=5400,
         class_split=class_split,
         images_dir=f"{dataset_root}/{class_split}",
@@ -160,7 +165,9 @@ def create_argparser(dataset_root, class_split):
         use_fp16=True,
         use_scale_shift_norm=True
     )
+    defaults.update(custom_diff)
     defaults.update(custom)
+
     parser = argparse.ArgumentParser()
     add_dict_to_argparser(parser, defaults)
     return parser
@@ -169,15 +176,22 @@ def create_argparser(dataset_root, class_split):
 if __name__ == "__main__":
     os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dataset_name", type=str, default="SDV1.4", choices=["Midjourney", "SDV1.4", "SDV1.5", "ADM", "GLIDE", "VQDM", "Wukong", "BigGAN"])
+    parser.add_argument("--image_size", type=int, default=512, choices=[256, 512])
+    parser.add_argument("--batch_size", type=int, default=16) # Setup according to cuda memory
+    temp_args, _ = parser.parse_known_args()
+
+    # Root directory for noised image generation, need /ai and /nature subdirectories beneath
+    DATASET_ROOT = f"{DATASET_ROUTES[temp_args.dataset_name]}/val"
+
     start = time.time()
     print("Start Time: " + str(time.localtime()))
 
-    # Original samples DDIM inversion
-    main(f"{DATASET_ROUTES['SDV1.4']}/val", 'ai')
-    main(f"{DATASET_ROUTES['SDV1.4']}/val", 'nature')
-    # Hard samples DDIM inversion
-    # main(f"{DATASET_ROUTES['SDV1.4']}/train/hard-samples", 'ai')
-    # main(f"{DATASET_ROUTES['SDV1.4']}/train/hard-samples", 'nature')
+    for class_split in ['ai', 'nature']:
+        cur_parser = update_argparser(temp_args.image_size, temp_args.batch_size, DATASET_ROOT, class_split)
+        args = cur_parser.parse_args()
+        main(args)
 
     end = time.time()
     print("End Time: " + str(time.localtime()))

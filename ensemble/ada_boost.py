@@ -280,14 +280,15 @@ if __name__ == "__main__":
     os.environ['CUDA_VISIBLE_DEVICES'] = '0'
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
-    print("\n\n ------------- L Stride 3 SD V1.4 --------------\n\n")
+    DATASETS = ["Midjourney", "SDV1.4", "SDV1.5", "ADM", "GLIDE", "VQDM", "Wukong", "BigGAN"]
+    DATASET_NAME = "SDV1.4"
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dataset_root_dir", type=str, default=f"{DATASET_ROUTES['SDV1.4']}/val/stepwise-noised")
-    parser.add_argument("--dataset_hard_root_dir", type=str, default=f"{DATASET_ROUTES['SDV1.4']}/train/hard-samples/stepwise-noised")
+    parser.add_argument("--dataset_root_dir", type=str, default=f"{DATASET_ROUTES[DATASET_NAME]}/val/stepwise-noised")
+    parser.add_argument("--dataset_hard_root_dir", type=str, default=f"{DATASET_ROUTES[DATASET_NAME]}/train/hard-samples/stepwise-noised")
     parser.add_argument("--train_split", type=str, default="train-small")
     parser.add_argument("--val_split", type=str, default="val-small")
-    parser.add_argument("--save_dir", type=str, default="./models/ada_boost_sdv14_L_step3")
+    parser.add_argument("--save_dir", type=str, default=f"./models/adaboost_{DATASET_NAME.replace('.', '')}_L_step3")
     parser.add_argument("--network_type", type=str, default="L")
     parser.add_argument("--seed", type=int, default=44)
     parser.add_argument("--step_size", type=int, default=3)
@@ -298,5 +299,7 @@ if __name__ == "__main__":
     parser.add_argument("--continue_pretrain_model_idx", type=int, default=-1)
     parser.add_argument("--ckpt_fn", type=str, default="")
     args = parser.parse_args()
+
+    print(f"\n\n ------------- {args.network_type} Stride {args.step_size} SD V1.4 --------------\n\n")
 
     main(args)

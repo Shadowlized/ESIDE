@@ -97,7 +97,7 @@ def gen_classification_trial(dataset_dir, start: int=0, end: int=None):
             continue
 
 
-def gen_error_dataset(dataset_dir, target_dir, start: int=0, end: int=None):
+def gen_flaw_dataset(dataset_dir, target_dir, start: int=0, end: int=None):
     client = OpenAI(base_url='https://api.openai.com/v1')
     images = sorted(os.listdir(dataset_dir))
     if end is not None:
@@ -237,7 +237,7 @@ def gen_explanation_dataset(err_category_dir):
 if __name__ == "__main__":
     ai_dataset_dir = f"{DATASET_ROUTES['SDV1.4']}/val/ai/"
     error_category_dir = f"{DATASET_ROUTES['SDV1.4']}/val/error-types/"
-    gen_error_dataset(ai_dataset_dir, error_category_dir, 0, 6000)
+    gen_flaw_dataset(ai_dataset_dir, error_category_dir, 0, 6000)
 
     gen_explanation_dataset(f"{DATASET_ROUTES['SDV1.4']}/val/error-types-manual/")
 
