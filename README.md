@@ -15,7 +15,6 @@ for feature extraction, and then trained on an AdaBoost ensemble for Synthetic I
 
 
 ### Timeline
-**[Coming Soon] 📅** Pipeline demos will be uploaded soon.
 
 **[2026.02.20] 📝** Installation and reproducibility tutorials are now online!
 
@@ -117,18 +116,19 @@ Other rarely used arguments:
 - First, run `explanation/explanation_flaw_gen.py` to generate an initial response based on the flaws classified.
 - Then, run `explanation/iterate_refinement.py` to perform text-image similarity grounded iterative explanation refinement.
 
-### Full Pipeline Demo (Coming Soon)
-
 
 ## Citation
 
-AAAI-26 Version Coming Soon
+Please cite our work if you find it useful!
 
 ```
-@article{wu2025explainable,
+@inproceedings{wu2026explainable,
   title={Explainable synthetic image detection through diffusion timestep ensembling},
   author={Wu, Yixin and Zhang, Feiran and Shi, Tianyuan and Yin, Ruicheng and Wang, Zhenghua and Gan, Zhenliang and Wang, Xiaohua and Lv, Changze and Zheng, Xiaoqing and Huang, Xuanjing},
-  journal={arXiv preprint arXiv:2503.06201},
-  year={2025}
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={40},
+  number={13},
+  pages={10844--10852},
+  year={2026}
 }
 ```
